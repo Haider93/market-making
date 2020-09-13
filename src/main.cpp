@@ -461,7 +461,7 @@ void test(Config &c, string path="") {
 
 }
 
-/*abbas code*/
+/* code*/
 
 class DataType {
 public:
