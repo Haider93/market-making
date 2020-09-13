@@ -1,25 +1,4 @@
-/*
-External documentation and recommendations on the use of this code is
-available at http://www.cs.umass.edu/~rich/tiles.html.
 
-This is an implementation of grid-style tile codings, based originally on
-the UNH CMAC code (see http://www.ece.unh.edu/robots/cmac.htm).
-Here we provide a procedure, "GetTiles", that maps floating-point and integer
-variables to a list of tiles. This function is memoryless and requires no
-setup. We assume that hashing colisions are to be ignored. There may be
-duplicates in the list of tiles, but this is unlikely if memory-size is
-large.
-
-The floating-point input variables will be gridded at unit intervals, so generalization
-will be by 1 in each direction, and any scaling will have
-to be done externally before calling tiles.  There is no generalization
-across integer values.
-
-It is recommended by the UNH folks that num-tilings be a power of 2, e.g., 16.
-
-We assume the existence of a function "rand()" that produces successive
-random integers, of which we use only the low-order bytes.
-*/
 
 #pragma GCC diagnostic ignored "-Wunused-result"
 
