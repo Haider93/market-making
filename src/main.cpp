@@ -120,14 +120,6 @@ int train(int id, Config &c, rl::Agent* m)
 }
 
 void run(Config &c) {
-
-	/*string config_path = "C:\\Users\\SERG\\Desktop\\test.yaml";
-	ifstream ifs(config_path, ifstream::in);
-	YAML::Node c = YAML::Load(ifs);
-		cout <<c["learning"]["algorithm"] << endl <<
-			c["data"]["symbols"] << " "<<
-			c["debug"]["inspect_books"]<<endl;*/
-
     // Initiate all random number generators
 
 	/*cout << c["data"]["symbols"] << endl <<
@@ -495,242 +487,6 @@ class d4 : public DataType {
 };
 
 
-//void myRun(Config &c) {
-//	// Initiate all random number generators
-//	/*unsigned seed = c["debug"]["random_seed"].as<unsigned>(
-//		chrono::system_clock::now().time_since_epoch().count());*/
-//
-//	/*vector<DataType> myC;
-//	d1 integerr(1994);
-//	myC.push_back(integerr.get());
-//	myC.push_back();*/
-//
-//	unsigned seed = 1994;
-//	bool eval_use_train_sample = false;
-//	int training_episodes = 1000;
-//	int eval_samples = 20;
-//	vector<string> data_symbols;
-//	data_symbols.push_back("GBP/USD");
-//	string data_md_dir = "C:\\Users\\SERG\\Downloads\\GBPUSD-2009-05";
-//	string tas_dir = "C:\\Users\\SERG\\Downloads\\GBPUSD-2009-05";
-//	int training_samples = 1;
-//
-//	srand(seed);
-//	r_eng.seed(seed);
-//
-//	/*bool eval_from_train = c["evaluation"]["use_train_sample"].as<bool>(false);*/
-//	bool eval_from_train = eval_use_train_sample;
-//
-//	/*n_train_episodes = c["training"]["n_episodes"].as<int>();*/
-//	n_train_episodes = training_episodes;
-//
-//
-//	/*n_eval_episodes = c["evaluation"]["n_samples"].as<int>(-1);*/
-//	n_eval_episodes = eval_samples;
-//
-//	// Partition the data
-//	/*auto symbols = c["data"]["symbols"].as<vector<string>>();*/
-//	auto symbols = data_symbols;
-//
-//
-//	/*auto file_samples = get_file_sample(c["data"]["md_dir"].as<string>(),
-//		c["data"]["tas_dir"].as<string>(),
-//		symbols);*/
-//
-//	auto file_samples = get_file_sample(data_md_dir,
-//		tas_dir,
-//		symbols);
-//
-//
-//	/*int n_train_samples = c["training"]["n_samples"].as<int>(-1);*/
-//	int n_train_samples = training_samples;
-//
-//	if (eval_from_train) {
-//		std::shuffle(file_samples.begin(), file_samples.end(),
-//			std::default_random_engine(seed));
-//
-//		train_set.resize(file_samples.size());
-//		copy(file_samples.begin(), file_samples.end(), train_set.begin());
-//
-//	}
-//	else {
-//		if (n_eval_episodes == -1) n_eval_episodes = file_samples.size();
-//
-//		int pivot = file_samples.size() - n_eval_episodes;
-//
-//		train_set.resize(pivot);
-//		test_set.resize(n_eval_episodes);
-//
-//		copy(file_samples.begin(), file_samples.begin() + pivot, train_set.begin());
-//		copy(file_samples.begin() + pivot, file_samples.end(), test_set.begin());
-//	}
-//
-//	if (n_train_samples < 0) n_train_samples = train_set.size();
-//	else if ((size_t)n_train_samples > train_set.size())
-//		throw std::runtime_error("Insufficient training samples.");
-//
-//	train_set.erase(train_set.begin(),
-//		train_set.begin() + (train_set.size() - n_train_samples));
-//
-//	if (eval_from_train) {
-//		test_set.resize(train_set.size());
-//		copy(train_set.begin(), train_set.end(), test_set.begin());
-//	}
-//
-//	cout << "[-] Training on " << n_train_episodes << " episodes." << endl;
-//	cout << "[-] Testing on " << n_eval_episodes << " episodes." << endl;
-//	cout << endl;
-//
-//	int learning_actions = 9;
-//	string policy_type = "epsilon_greedy";
-//	float policy_eps_int = 0.8;
-//	float policy_eps_floor = 0.0001;
-//	unsigned int policy_eps_T = 800;
-//
-//
-//	// Set up policy:
-//	/*unsigned int n_actions = c["learning"]["n_actions"].as<unsigned int>();*/
-//	unsigned int n_actions = learning_actions;
-//
-//	std::unique_ptr<rl::Policy> p;
-//	/*string policy_type = c["policy"]["type"].as<string>("");*/
-//	string policy_type = policy_type;
-//
-//	if (policy_type == "greedy")
-//		p = std::unique_ptr<rl::Policy>(new rl::Greedy(n_actions, seed));
-//
-//	else if (policy_type == "random")
-//		p = std::unique_ptr<rl::Policy>(new rl::Random(n_actions, seed));
-//
-//	else if (policy_type == "epsilon_greedy") {
-//		//float eps = c["policy"]["eps_init"].as<float>();
-//		float eps = policy_eps_int;
-//
-//			//eps_floor = c["policy"]["eps_floor"].as<float>();
-//		unsigned int eps_T = policy_eps_T;
-//
-//		p = std::unique_ptr<rl::Policy>(
-//			new rl::EpsilonGreedy(n_actions, eps, policy_eps_floor, eps_T, seed));
-//
-//	}
-//	else if (policy_type == "boltzmann") {
-//		/*float tau = c["policy"]["tau_init"].as<float>(),
-//			tau_floor = c["policy"]["tau_floor"].as<float>();
-//		unsigned int tau_T = c["policy"]["tau_T"].as<unsigned int>();
-//
-//		p = std::unique_ptr<rl::Policy>(
-//			new rl::Boltzmann(n_actions, tau, tau_floor, tau_T, seed));*/
-//
-//	}
-//	else
-//		throw runtime_error("Please specify a valid policy!");
-//
-//
-//	string algorithm = "double_q_learn";
-//	int training_n_threads = 1;
-//
-//
-//	// Set up the agent
-//	rl::Agent *m;
-//	/*string algorithm = c["learning"]["algorithm"].as<string>("");*/
-//	string algorithm = algorithm;
-//
-//
-//	if (algorithm == "q_learn")
-//		m = new rl::QLearn(std::move(p), c);
-//
-//	else if (algorithm == "double_q_learn")
-//		m = new rl::DoubleQLearn(std::move(p), c);
-//
-//	else if (algorithm == "sarsa")
-//		m = new rl::SARSA(std::move(p), c);
-//
-//	else if (algorithm == "r_learn")
-//		m = new rl::RLearn(std::move(p), c);
-//
-//	else if (algorithm == "online_r_learn")
-//		m = new rl::OnlineRLearn(std::move(p), c);
-//
-//	else if (algorithm == "double_r_learn")
-//		m = new rl::DoubleRLearn(std::move(p), c);
-//
-//	else
-//		throw runtime_error("Please specify a valid learning algorithm!");
-//
-//	// Run training phases:
-//	if (n_train_episodes > 0) {
-//		/*n_threads = min(c["training"]["n_threads"].as<int>(1),
-//			n_train_episodes);*/
-//
-//		n_threads = min(training_n_threads,
-//			n_train_episodes);
-//
-//		if (n_threads > 1) {
-//			// Setup threads:
-//			vector<thread*> threads;
-//			for (int i = 0; i < n_threads; i++)
-//				threads.push_back(new thread(train, i, ref(c), m));
-//
-//			// Wait for threads to end
-//			for (int i = 0; i < n_threads; i++) {
-//				threads[i]->join();
-//				delete threads[i];
-//			}
-//		}
-//		else {
-//			train(0, c, m);
-//		}
-//	}
-//
-//	// Reset counter:
-//	current_episode = 0;
-//	cout << endl;
-//
-//	// Run final testing phase:
-//	m->GoGreedy();
-//
-//	environment::Intraday<> env(c);
-//	for (int i = 0; i < n_eval_episodes; i++) {
-//		data_sample_t ds = test_set[i];
-//		env.LoadData(get<0>(ds), get<1>(ds), get<2>(ds));
-//
-//		experiment::serial::Backtester experiment(c, env);
-//
-//		current_episode++;
-//
-//		if (experiment.RunEpisode(m)) {
-//			cout << "[0] \33[4mTested on episode " << current_episode
-//				<< " (" << get<0>(ds) << " - " << env.getEpisodeId() << "):\33[0m";
-//
-//			cout << "\n\tRwd = " << env.getEpisodeReward() << endl;
-//			cout << "\tRho = " << env.getMeanEpisodeReward() << endl;
-//			cout << "\tPnl = " << env.getEpisodePnL() << endl;
-//			cout << "\tnTr = " << env.getTotalTransactions() << endl;
-//			cout << "\tPpt = " << env.getEpisodePnL() / env.getTotalTransactions() << endl;
-//			cout << endl;
-//		}
-//	}
-//
-//	// Output testing stats to a csv:
-//	//env.writeStats(c["output_dir"].as<string>() + "test_stats.csv");
-//	string output_dir = "C://Users//SERG//Desktop//";
-//	env.writeStats(output_dir + "hahaha.csv");
-//
-//
-//	delete m;
-//}
-
-
-//int main()
-//{
-//
-//	cout << "Main Function called just now" << endl;
-//	myRun();
-//	cout << "Exiting main..." << endl;
-//	return 0;
-//}
-
-
 int main(int argc, char** argv)
 {
 
@@ -769,16 +525,14 @@ int main(int argc, char** argv)
             else
                 config_path = "main";
 
-			/*abbas code starts*/
-			config_path = "C:\\Users\\Abbas\\Desktop\\test.yaml";
-			/*abbas code ends*/
+			/* code starts*/
+			config_path = "path-to-the-configuration-file";
+			/* code ends*/
 
             if (vm.count("output_dir"))
                 output_dir = vm["output_dir"].as<string>();
             else {
-                //output_dir = "/tmp/rl_markets/";
-				output_dir = "C:\\Users\\Abbas\\Desktop\\abbas\\rl_markets\\temporary\\";
-
+		output_dir = "path-to-the-output-directory-for-results";
                 time_t rawtime;
                 struct tm *timeinfo;
                 char buffer[80];
@@ -798,18 +552,18 @@ int main(int argc, char** argv)
             else
                 symbol = "";
 
-			/*abbas code starts*/
+			/*code starts*/
 			symbol = "HSBA.L";
-			/*abbas code ends*/
+			/*code ends*/
 
             if (vm.count("algorithm"))
                 algorithm = vm["algorithm"].as<string>();
             else
                 algorithm = "";
 
-			/*abbas code starts*/
+			/* code starts*/
 			algorithm = "double_q_learn";
-			/*abbas code ends*/
+			/* code ends*/
 
             if (vm.count("help")) {
                 cout << "RL_Markets Help:" << endl
@@ -850,20 +604,6 @@ int main(int argc, char** argv)
 		YAML::Node& config1 = configure.getObject();//entire yaml file in config
 		Config* config = static_cast<Config*>(&config1);
 
-		/*cout << "path of data dir " << (*config)["data"]["md_dir"] << endl;
-		(*config)["data"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/vod/md_dir";
-		(*config)["data"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/vod/tas_dir";
-
-		cout << "path of data dir after" << (*config)["data"]["md_dir"] << endl;
-		cout << "path of tas dir after" << (*config)["data"]["tas_dir"] << endl;*/
-
-		//"C:\\Users\\SERG\\Desktop\\test.yaml"
-		/*ifstream ifs(config_path, ifstream::in);
-		YAML::Node config = YAML::Load(ifs);
-		cout <<config["learning"]["algorithm"] << endl <<
-			config["data"]["symbols"] << " "<<
-			config["debug"]["inspect_books"]<<endl;*/
-
 
         (*config)["output_dir"] = output_dir;
 
@@ -888,133 +628,9 @@ int main(int argc, char** argv)
             cout.rdbuf(old);
 
         } 
-		//else{
-
-			//while (1) {
-			//	system("CLS");
-			//	//cout << "Enter 1: Train Agent.\nEnter 2: Test Agent. \nEnter 3: Exit." << endl;
-			//	argc = 3;
-			//	if(argc < 2)
-			//	{
-			//		cout << "System requires configuration.." << endl;
-			//		boost::thread::sleep(boost::get_system_time() + boost::posix_time::millisec(3000));
-			//		return 0;
-			//	}
-			//	else
-			//	{
-			//		int mode = atoi(argv[1]);//train or test
-			//		//int mode = 2;
-			//		string dataset = argv[2];
-			//		//string dataset = "GSK";
-			//		//cin >> c;
-			//		if (mode != 1 and mode != 2 and mode != 3) {
-			//			cout << "Invalid Choice.." << endl;
-			//			//return 0;
-			//		}
-			//		if (mode == 1) {
-			//			if (dataset == "VOD")
-			//			{
-			//				(*config)["data"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/vod/md_dir";
-			//				(*config)["data"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/vod/tas_dir";
-			//			}
-			//			else if (dataset == "AAL")
-			//			{
-			//				(*config)["data"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/aal/md_dir";
-			//				(*config)["data"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/aal/tas_dir";
-			//			}
-			//			else if (dataset == "GSK")
-			//			{
-			//				(*config)["data"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/gsk/md_dir";
-			//				(*config)["data"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/gsk/tas_dir";
-			//			}
-			//			else if (dataset == "NVDA")
-			//			{
-			//				(*config)["data"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/nvda/md_dir";
-			//				(*config)["data"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/nvda/tas_dir";
-			//			}
-			//			else if (dataset == "APPL")
-			//			{
-			//				(*config)["data"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/apple/md_dir";
-			//				(*config)["data"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/apple/tas_dir";
-			//			}
-			//			(*config)["training"]["n_episodes"] = atoi(argv[3]);
-			//			(*config)["evaluation"]["n_samples"] = atoi(argv[4]);
-			//			ofstream out(output_dir + "program_updated_config.yaml", fstream::out);
-			//			//cout << "path of data dir after" << (*config)["data"]["md_dir"] << endl;
-			//			//cout << "path of tas dir after" << (*config)["data"]["tas_dir"] << endl;
-			//			out << (*config);
-			//			cout << "Training continues..." << endl;
-			//			run(*config);
-			//			return 0;//exit with success
-			//			/*if (train_status == 0){
-			//				cout << "Training complete" << endl;
-			//				return 0;
-			//			}
-			//			else {
-			//				cout << "Training failed" << endl;
-			//				return -1;
-			//			}*/
-			//				
-			//			//test(*config);
-			//		}
-
-			//		else if (mode == 2) {
-			//			string models_path = "C:\\Users\\Abbas\\Desktop\\cleaned_data\\models\\";
-			//			if (dataset == "VOD")
-			//			{
-			//				(*config)["evaluation"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/vod/md_dir";
-			//				(*config)["evaluation"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/vod/tas_dir";
-			//				models_path += "vod_model.txt";
-			//			}
-			//			else if (dataset == "AAL")
-			//			{
-			//				(*config)["evaluation"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/aal/md_dir";
-			//				(*config)["evaluation"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/aal/tas_dir";
-			//				models_path += "aal_model.txt";
-			//			}
-			//			else if (dataset == "MO")
-			//			{
-			//				(*config)["evaluation"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/mo/md_dir";
-			//				(*config)["evaluation"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/mo/tas_dir";
-			//				models_path += "mo_model.txt";
-			//			}
-			//			else if (dataset == "GSK")
-			//			{
-			//				(*config)["evaluation"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/gsk/md_dir";
-			//				(*config)["evaluation"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/gsk/tas_dir";
-			//				models_path += "gsk_model.txt";
-			//			}
-			//			else if (dataset == "NVDA")
-			//			{
-			//				(*config)["evaluation"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/nvda/md_dir";
-			//				(*config)["evaluation"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/nvda/tas_dir";
-			//				models_path += "nvda_model.txt";
-			//			}
-			//			else if (dataset == "APPL")
-			//			{
-			//				(*config)["evaluation"]["md_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/apple/md_dir";
-			//				(*config)["evaluation"]["tas_dir"] = "C:/Users/Abbas/Desktop/cleaned_data/apple/tas_dir";
-			//				models_path += "apple_model.txt";
-			//			}
-			//			(*config)["evaluation"]["n_samples"] = atoi(argv[3]);
-			//			//(*config)["evaluation"]["n_samples"] = 20;
-			//			ofstream out(output_dir + "program_updated_config.yaml", fstream::out);
-			//			cout << "path of data dir after" << (*config)["evaluation"]["md_dir"] << endl;
-			//			cout << "path of tas dir after" << (*config)["evaluation"]["tas_dir"] << endl;
-			//			out << (*config);
-			//			test(*config, models_path);
-			//			return 0;//exit with success
-			//		}
-			//		else {
-			//			cout << "Exiting.." << endl;
-			//			return 0;
-			//		}
-			//	}
-			//}
-		//}
-
+		
 		run(*config);
-		//test(*config, "C:\\Users\\Abbas\\Desktop\\abbas\\rl_markets\\temporary\\27_12_2019.12_01_40\\");
+		//test(*config, "path-to-directory");
 		
         cout << output_dir << endl;
 
