@@ -138,12 +138,6 @@ Intraday<T1, T2>::Intraday(Config& c):
     state_vars()
 {
 
-	/*string config_path = "C:\\Users\\SERG\\Desktop\\test.yaml";
-	ifstream ifs(config_path, ifstream::in);
-	YAML::Node c = YAML::Load(ifs);
-	cout << c["learning"]["algorithm"] << endl <<
-		c["data"]["symbols"] << " " <<
-		c["debug"]["inspect_books"] << endl;*/
 	ofstream temp_file("pred.csv", ofstream::out);
 	temp_file << "Actual" + std::to_string(',') + "Predicted" + "\n";
 	//Py_Initialize();
@@ -333,9 +327,6 @@ void Intraday<T1, T2>::DoAction(int action, float regime)
 {
     ref_time = (long) ceil(market->time() + latency_->sample());
 
-	/*outfile1.open("C:\\Users\\Abbas\\Desktop\\abbas\\rl_markets\\temporary\\actions.txt", ios::out | ios::app);
-	outfile1 << to_string(action) << endl;
-	outfile1.close();*/
 	int reg;
 	if (regime >= 50.0)
 		reg = 0;//extreme bearish
@@ -347,8 +338,6 @@ void Intraday<T1, T2>::DoAction(int action, float regime)
 		reg = 3;//bearish
 	else if (regime > 10.0 && regime <= 20.0)
 		reg = 4;//neutral
-	//outfile1 << regime << endl;
-	//outfile1.close();
 
 
 	//regime tells extreme bearishness or bullishness, use it fot that
@@ -528,9 +517,6 @@ bool Intraday<T1, T2>::UpdateBookProfiles(
 	//try {
 	//	auto next_n_recs = market_depth.LoadAllUntil(5);
 	//	//retrieving next 1 state midprice
-	//	/*outfile1.open("C:\\Users\\Abbas\\Desktop\\abbas\\rl_markets\\temporary\\states_list.txt", ios::out | ios::app);
-	//	outfile1 << "Next price ::" << to_string(midprice(next_n_recs.at(0).ask_prices.at(0), next_n_recs.at(0).bid_prices.at(0))) << ",Current price ::" << to_string(target_price_->get()) << endl;
-	//	outfile1.close();*/
 
 	//	if (next_n_recs.size() != 0){
 	//		next_state_target_price = midprice(next_n_recs.at(0).ask_prices.at(0), next_n_recs.at(0).bid_prices.at(0));
