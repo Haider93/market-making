@@ -135,7 +135,6 @@ class SARSA: public Agent {
 };
 
 class DoubleQLearn: public DoubleAgent {
-    // H. V Hasselt, “Double Q-learning,”
     private:
         void UpdateTraces(State& from_state, int action);
 
