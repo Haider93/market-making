@@ -42,8 +42,6 @@ inline double midprice_move(AskBook<>& ask_book, BidBook<>& bid_book)
 
 inline double microprice(AskBook<>& ask_book, BidBook<>& bid_book)
 {
-    // See: Todd, A.; Hayes, R.; Beling, P.; Scherer, W.,
-    //      "Micro-price trading in an order-driven market,"
     double ap = ask_book.price(0),
            bp = bid_book.price(0);
     long av = ask_book.total_volume(),
@@ -61,8 +59,6 @@ inline double microprice(AskBook<>& ask_book, BidBook<>& bid_book)
 
 inline double last_microprice(AskBook<>& ask_book, BidBook<>& bid_book)
 {
-    // See: Todd, A.; Hayes, R.; Beling, P.; Scherer, W.,
-    //      "Micro-price trading in an order-driven market,"
     double ap = ask_book.price(0),
            bp = bid_book.price(0);
     long av = ask_book.last_total_volume(),
