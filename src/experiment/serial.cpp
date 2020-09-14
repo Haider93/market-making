@@ -39,13 +39,6 @@ Learner::Learner(Config &c, environment::Base& env):
     Runner(c, env)
 {
 
-	/*string config_path = "C:\\Users\\SERG\\Desktop\\test.yaml";
-	ifstream ifs(config_path, ifstream::in);
-	YAML::Node c = YAML::Load(ifs);
-	cout << c["learning"]["algorithm"] << endl <<
-		c["data"]["symbols"] << " " <<
-		c["debug"]["inspect_books"] << endl;*/
-
     // Register loggers for training:
     if (c["logging"] and c["logging"]["log_learning"].as<bool>()) {
         try {
@@ -105,13 +98,6 @@ bool Learner::RunEpisode(rl::Agent *m)
 Backtester::Backtester(Config &c, environment::Base& env):
     Runner(c, env)
 {
-
-	/*string config_path = "C:\\Users\\SERG\\Desktop\\test.yaml";
-	ifstream ifs(config_path, ifstream::in);
-	YAML::Node c = YAML::Load(ifs);
-	cout << c["learning"]["algorithm"] << endl <<
-		c["data"]["symbols"] << " " <<
-		c["debug"]["inspect_books"] << endl;*/
 
     // Register loggers for environment:
     if (c["logging"] and c["logging"]["log_backtest"].as<bool>()) {
